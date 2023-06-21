@@ -14,7 +14,7 @@ RUN apk add --no-cache --virtual build-essentials \
     docker-php-ext-install zip && \
     apk del build-essentials && rm -rf /usr/src/php*
 
-RUN apk add --no-cache nginx
+RUN apk add --no-cache nginx supervisor
 RUN wget https://getcomposer.org/composer-stable.phar -O /usr/local/bin/composer && chmod +x /usr/local/bin/composer
 
 COPY ./start.sh /start.sh
