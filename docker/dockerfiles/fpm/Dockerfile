@@ -19,5 +19,5 @@ RUN wget https://getcomposer.org/composer-stable.phar -O /usr/local/bin/composer
 
 COPY ./start.sh /start.sh
 RUN chmod +x /start.sh
+WORKDIR /var/www/app
 CMD /start.sh
-
