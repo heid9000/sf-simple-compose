@@ -2,7 +2,7 @@ FROM php:8.1-fpm-alpine
 RUN apk add --no-cache mysql-client msmtp perl wget procps shadow libzip libpng libjpeg-turbo libwebp freetype icu icu-data-full
 
 RUN apk add --no-cache --virtual build-essentials \
-    icu-dev icu-libs zlib-dev g++ make automake autoconf libzip-dev \
+    icu-dev icu-libs zlib-dev g++ make automake autoconf libzip-dev linux-headers \
     libpng-dev libwebp-dev libjpeg-turbo-dev freetype-dev && \
     docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg --with-webp && \
     docker-php-ext-install gd && \
@@ -11,10 +11,12 @@ RUN apk add --no-cache --virtual build-essentials \
     docker-php-ext-install intl && \
     docker-php-ext-install opcache && \
     docker-php-ext-install exif && \
-    docker-php-ext-install zip && \
-    apk del build-essentials && rm -rf /usr/src/php*
+    docker-php-ext-install zip
 
-RUN apk add --no-cache nginx supervisor
+RUN pecl install xdebug-3.2.1 && docker-php-ext-enable xdebug
+RUN apk del build-essentials && rm -rf /usr/src/php*
+
+RUN apk add --no-cache nginx supervisor make
 RUN wget https://getcomposer.org/composer-stable.phar -O /usr/local/bin/composer && chmod +x /usr/local/bin/composer
 
 COPY ./start.sh /start.sh

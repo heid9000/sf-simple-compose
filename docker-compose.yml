@@ -18,8 +18,11 @@ services:
     entrypoint: ['/start.sh']
     ports:
       - "8080:80"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     volumes:
       - ${PWD}/docker/supervisor/supervisord.conf:/etc/supervisord.conf
+      - ${PWD}/docker/fpm/symfony.ini:/usr/local/etc/php/conf.d/symfony.ini
       - ${PWD}/docker/fpm/zz-docker.conf:/usr/local/etc/php-fpm.d/zz-docker.conf
       - ${PWD}/docker/nginx/symfony.conf:/etc/nginx/http.d/default.conf
       - ${PWD}/app:/var/www/app
