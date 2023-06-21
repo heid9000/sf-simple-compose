@@ -20,3 +20,4 @@ RUN wget https://getcomposer.org/composer-stable.phar -O /usr/local/bin/composer
 COPY ./start.sh /start.sh
 RUN chmod +x /start.sh
 CMD /start.sh
+
