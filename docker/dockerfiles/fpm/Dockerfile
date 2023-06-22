@@ -19,6 +19,9 @@ RUN apk del build-essentials && rm -rf /usr/src/php*
 RUN apk add --no-cache nginx supervisor make
 RUN wget https://getcomposer.org/composer-stable.phar -O /usr/local/bin/composer && chmod +x /usr/local/bin/composer
 
+ARG GID
+ARG UID
+RUN adduser -h /var/www -u $UID -G root -D admin
 COPY ./start.sh /start.sh
 RUN chmod +x /start.sh
 WORKDIR /var/www/app
