@@ -8,3 +8,4 @@
 - Код приложения находится в `./app`
 - MariaDB можно найти по адресу `localhost:9887 db:mydb`
 - Подключится к сервису php: `docker-compose exec php-fpm-gd sh`
+- `Или можно использовать Makefile`
