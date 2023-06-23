@@ -19,16 +19,8 @@ RUN apk del build-essentials && rm -rf /usr/src/php*
 RUN apk add --no-cache nginx supervisor make
 RUN wget https://getcomposer.org/composer-stable.phar -O /usr/local/bin/composer && chmod +x /usr/local/bin/composer
 
-ARG GID
 ARG UID
 RUN adduser -h /var/www -u $UID -G root -D admin
-
-# copping .env to admin user .profile
-COPY ./environ /environ
-RUN chmod +r /environ && \
-    cat /environ | \
-    xargs -I {} echo "export "{} > /var/www/.profile && \
-    chmod +rx /var/www/.profile
 
 COPY ./start.sh /start.sh
 RUN chmod +x /start.sh

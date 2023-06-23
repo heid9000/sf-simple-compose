@@ -17,7 +17,6 @@ services:
       context: docker/dockerfiles/fpm
       args:
         UID: ${UID}
-        GID: ${GID}
     env_file: ['.env']
     entrypoint: ['/start.sh']
     ports:

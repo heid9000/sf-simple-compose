@@ -1,3 +1,5 @@
+include .env
+
 up:
 	docker-compose up -d
 down:
@@ -5,6 +7,7 @@ down:
 rebuild:
 	docker-compose up -d --build --force-recreate --no-deps
 cli:
-	docker-compose exec php-fpm-gd su - admin -c "cd app && sh"
+	docker-compose exec --user="${UID}:${GID}" php-fpm-gd sh
 test_db:
-	docker-compose exec php-fpm-gd bin/console dbal:run-sql "select 'succesfully connected!' as result;"
+	docker-compose exec --user="${UID}:${GID}" php-fpm-gd bin/console dbal:run-sql \
+	"select 'succesfully connected!' as result;"
