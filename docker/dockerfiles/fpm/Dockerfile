@@ -3,7 +3,7 @@ RUN apk add --no-cache mysql-client msmtp perl wget procps shadow libzip libpng 
 
 RUN apk add --no-cache --virtual build-essentials \
     icu-dev icu-libs zlib-dev g++ make automake autoconf libzip-dev linux-headers \
-    libpng-dev libwebp-dev libjpeg-turbo-dev freetype-dev && \
+    libpng-dev libwebp-dev libjpeg-turbo-dev freetype-dev  && \
     docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg --with-webp && \
     docker-php-ext-install gd && \
     docker-php-ext-install mysqli && \
@@ -12,6 +12,10 @@ RUN apk add --no-cache --virtual build-essentials \
     docker-php-ext-install opcache && \
     docker-php-ext-install exif && \
     docker-php-ext-install zip
+
+ENV MAGICK_HOME=/usr
+RUN apk add --no-cache imagemagick imagemagick-dev && \
+    pecl install imagick-3.7.0 && docker-php-ext-enable imagick
 
 RUN pecl install xdebug-3.2.1 && docker-php-ext-enable xdebug
 RUN apk del build-essentials && rm -rf /usr/src/php*
